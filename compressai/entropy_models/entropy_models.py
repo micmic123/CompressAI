@@ -137,8 +137,12 @@ class EntropyModel(nn.Module):
         outputs = inputs.clone()
         if means is not None:
             outputs -= means
-
-        outputs = torch.round(outputs)
+            
+        # outputs = torch.round(outputs)  # gradient will be 0
+        # to preserve the gradient
+        with torch.no_grad():
+            tmp = torch.round(outputs) - outputs
+        outputs = tmp + outputs
 
         if mode == "dequantize":
             if means is not None:
