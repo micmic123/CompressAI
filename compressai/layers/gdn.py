@@ -58,8 +58,8 @@ class GDN(nn.Module):
         norm = F.conv2d(x ** 2, gamma, beta)
 
         if self.inverse:
-            # norm = torch.sqrt(norm)  # may cause nan.
-            norm = torch.sqrt(torch.relu(norm))
+            norm = torch.sqrt(norm)  # may cause nan.
+            # norm = torch.sqrt(torch.relu(norm))
         else:
             norm = torch.rsqrt(norm)
 
