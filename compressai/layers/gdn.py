@@ -90,7 +90,7 @@ class GDN1(GDN):
         norm = F.conv2d(torch.abs(x), gamma, beta)
 
         if not self.inverse:
-            norm = 1.0 / norm
+            norm = 1.0 / (norm + 1e-4)
 
         out = x * norm
 
